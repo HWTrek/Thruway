@@ -146,13 +146,6 @@ class Broker implements RealmModuleInterface
             return;
         }
 
-        if (!$matcher->uriIsValid($msg->getUri(), $msg->getOptions())) {
-            $errorMsg = ErrorMessage::createErrorMessageFromMessage($msg);
-            $session->sendMessage($errorMsg->setErrorURI('wamp.error.invalid_uri'));
-
-            return;
-        }
-
         $matchHash = $matcher->getMatchHash($msg->getUri(), $msg->getOptions());
 
         if (!isset($this->subscriptionGroups[$matchHash])) {
